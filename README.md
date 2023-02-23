@@ -1,4 +1,4 @@
-# automated-os-installation-windows
+# Automated OS Installation Windows
 Automating program installation in a Windows environment
 
 ##How to use
