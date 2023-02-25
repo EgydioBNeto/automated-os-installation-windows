@@ -1,79 +1,30 @@
-# Define the PowerShell version
-$PSVersion = Get-Host | Select-Object Version
-if ($PSVersion.Version.Major -lt 5) {
-    Write-Host "This version of PowerShell is not supported. Please update to PowerShell 5 or higher."
-    Exit
-}
+@echo of
 
-# Check network connectivity
-$WebClient = New-Object System.Net.WebClient
-$Connectivity = $WebClient.DownloadString("http://www.msftncsi.com/ncsi.txt")
-if ($Connectivity -ne "Microsoft NCSI") {
-    Write-Host "No network connection detected. Please check your network settings and try again."
-    Exit
-}
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-# Define the working directory
-$WorkDirectory = "$env:USERPROFILE\Downloads"
+choco install --confirm adobereader
+choco install --confirm googlechrome
+choco install --confirm flashplayerplugin
+choco install --confirm jre8
+choco install --confirm 7zip.install
+choco install --confirm microsoft-windows-terminal
+choco install --confirm onlyoffice
+choco install --confirm curl
+choco install --confirm spotify
+choco install --confirm amd-ryzen-chipset
+choco install --confirm nvidia-display-driver
+choco install --confirm qbittorrent
+choco install --confirm openvpn
+choco install --confirm steam
+choco install --confirm discord
+choco install --confirm bitwarden
+choco install --confirm directx
+choco install --confirm msvisualcplusplus2013-redist
+choco install --confirm origin
+choco install --confirm epicgameslauncher
+choco install --confirm leagueoflegends
 
-# Update Windows
-Write-Host "Checking for Windows updates..."
-$Updates = Get-WindowsUpdate -MaxUpdates 50
-if ($Updates.Count -gt 0) {
-    Write-Host "Downloading and installing $($Updates.Count) Windows updates..."
-    Install-WindowsUpdate -AcceptAll -IgnoreReboot
-}
+choco install --confirm teamspeak
 
-# Define the packages to be installed
-$Packages = @(
-    "adobereader",
-    "googlechrome",
-    "jre8",
-    "7zip.install",
-    "microsoft-windows-terminal",
-    "onlyoffice",
-    "curl",
-    "spotify",
-    "amd-ryzen-chipset",
-    "nvidia-display-driver",
-    "qbittorrent",
-    "openvpn",
-    "steam",
-    "discord",
-    "bitwarden",
-    "msvisualcplusplus2013-redist",
-    "origin",
-    "epicgameslauncher",
-    "leagueoflegends",
-    "teamspeak"
-)
-
-# Install Chocolatey if not installed yet
-if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
-    Write-Host "Chocolatey was not found. Installing Chocolatey..."
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-}
-
-# Install packages
-foreach ($Package in $Packages) {
-    Write-Host "Installing package $Package..."
-    if ($Package -eq "nvidia-display-driver") {
-        choco install --confirm $Package -y --no-restart
-    } else {
-        choco install --confirm $Package -y
-    }
-}
-
-# Install Chocolatey Cleaner for cleanup
-Write-Host "Installing Chocolatey Cleaner..."
-choco install --confirm chocolatey-cleaner -y
-
-# Clean Chocolatey cache
-Write-Host "Cleaning Chocolatey cache..."
-choco-cleaner -s
-
-# Clean PowerShell history
-Write-Host "Cleaning PowerShell history..."
-Clear-History -CommandId * -ErrorAction SilentlyContinue
-
-Write-Host "The script has been executed successfully."
+choco install --confirm choco-cleaner
+Choco-Cleaner
