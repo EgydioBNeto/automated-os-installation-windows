@@ -2,7 +2,6 @@
 
 choco install --confirm adobereader
 choco install --confirm googlechrome
-choco install --confirm flashplayerplugin
 choco install --confirm jre8
 choco install --confirm 7zip.install
 choco install --confirm microsoft-windows-terminal
