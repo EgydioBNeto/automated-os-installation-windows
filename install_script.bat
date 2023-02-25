@@ -1,3 +1,4 @@
+@echo off
 # Define the PowerShell version
 $PSVersion = Get-Host | Select-Object Version
 if ($PSVersion.Version.Major -lt 5) {
